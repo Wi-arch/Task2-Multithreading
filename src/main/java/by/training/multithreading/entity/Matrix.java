@@ -2,6 +2,9 @@ package by.training.multithreading.entity;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import by.training.multithreading.validator.MatrixException;
+import by.training.multithreading.validator.MatrixValidator;
+
 public enum Matrix {
 
 	INSTANCE;
@@ -16,8 +19,8 @@ public enum Matrix {
 		}
 	}
 
-	public void initMatrix(int size) {
-
+	public void initMatrix(int size) throws MatrixException {
+		MatrixValidator.validateMatrixSize(size);
 		this.elementArray = new Element[size][size];
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
@@ -34,13 +37,13 @@ public enum Matrix {
 		}
 	}
 
-	public int getValue(int i, int j) {
-
+	public int getValue(int i, int j) throws MatrixException {
+		MatrixValidator.validateIndexOfMatrix(i, j, elementArray.length);
 		return elementArray[i][j].value;
 	}
 
-	public boolean setValue(int i, int j, int value) {
-
+	public boolean setValue(int i, int j, int value) throws MatrixException {
+		MatrixValidator.validateIndexOfMatrix(i, j, elementArray.length);
 		Element currentElement = elementArray[i][j];
 		if (!currentElement.flag.compareAndExchange(false, true)) {
 			currentElement.value = value;
