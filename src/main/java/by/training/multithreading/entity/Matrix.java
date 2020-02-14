@@ -2,7 +2,7 @@ package by.training.multithreading.entity;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import by.training.multithreading.validator.MatrixException;
+import by.training.multithreading.exception.MatrixException;
 import by.training.multithreading.validator.MatrixValidator;
 
 public enum Matrix {

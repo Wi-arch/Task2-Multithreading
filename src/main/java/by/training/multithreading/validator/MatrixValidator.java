@@ -1,5 +1,7 @@
 package by.training.multithreading.validator;
 
+import by.training.multithreading.exception.MatrixException;
+
 public class MatrixValidator {
 
 	public static void validateMatrixSize(int size) throws MatrixException {
