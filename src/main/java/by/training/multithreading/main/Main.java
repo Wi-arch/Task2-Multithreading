@@ -36,19 +36,19 @@ public class Main {
 			throw new RuntimeException("Cannot initialize matrix");
 		}
 
-		int threadNameCounter = 1;
 		CountDownLatch latch = null;
 		ExecutorService executor = null;
 
 		for (int i = 0; i < iterationNumber; i++) {
 			latch = new CountDownLatch(matrixSize);
 			executor = Executors.newFixedThreadPool(matrixSize);
-			for (int t = 0; t < matrixSize; t++, threadNameCounter++) {
-				executor.submit(new MatrixHandlerThread(threadNameCounter, OUTPUT_FILE_NAME, latch));
+			for (int t = 0; t < matrixSize; t++) {
+				executor.submit(new MatrixHandlerThread(OUTPUT_FILE_NAME, latch));
 			}
 			try {
 				latch.await();
 			} catch (InterruptedException e) {
+				Thread.currentThread().interrupt();
 				LOGGER.warn("Thread is interrupted", e);
 			} finally {
 				executor.shutdown();
