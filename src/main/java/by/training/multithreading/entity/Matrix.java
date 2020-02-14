@@ -58,4 +58,16 @@ public enum Matrix {
 		return size;
 	}
 
+	@Override
+	public String toString() {
+
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < elementArray.length; i++) {
+			for (int j = 0; j < elementArray.length; j++) {
+				sb.append(elementArray[i][j].value + "\t");
+			}
+			sb.append("\r\n");
+		}
+		return sb.toString();
+	}
 }
