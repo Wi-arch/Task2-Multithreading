@@ -8,18 +8,20 @@ import org.apache.log4j.Logger;
 
 import by.training.multithreading.entity.Matrix;
 import by.training.multithreading.entity.MatrixHandlerThread;
+import by.training.multithreading.exception.MatrixServiceException;
+import by.training.multithreading.service.MatrixService;
 import by.training.multithreading.util.StringParser;
 import by.training.multithreading.util.TextFileReader;
 import by.training.multithreading.util.TextFileWriter;
 
 public class Main {
 
-	private final static Logger LOGGER = Logger.getLogger(Main.class);
-	private final static TextFileReader READER = TextFileReader.getInstance();
-	private final static TextFileWriter WRITER = TextFileWriter.getInstance();
-	private final static String FILE_NAME = "InitializationData.txt";
-	private final static String OUTPUT_FILE_NAME = "Matrix.txt";
-	private final static String SPLITERATOR = "--------";
+	private static final Logger LOGGER = Logger.getLogger(Main.class);
+	private static final TextFileReader READER = TextFileReader.getInstance();
+	private static final TextFileWriter WRITER = TextFileWriter.getInstance();
+	private static final String FILE_NAME = "InitializationData.txt";
+	private static final String OUTPUT_FILE_NAME = "Matrix.txt";
+	private static final String SPLITERATOR = "--------";
 
 	public static void main(String[] args) {
 
@@ -27,6 +29,7 @@ public class Main {
 		int iterationNumber = StringParser.parseStringToIterationNumber(dataString);
 		int matrixSize = StringParser.parseStringToSizeOfMatrix(dataString);
 		Matrix matrix = Matrix.INSTANCE;
+		MatrixService matrixService = MatrixService.getInstance();
 
 		matrix.initMatrix(matrixSize);
 
@@ -48,7 +51,11 @@ public class Main {
 				executor.shutdown();
 			}
 			WRITER.writeStringToFile(OUTPUT_FILE_NAME, matrix.toString());
-			matrix.resetMatrixFlag();
+			try {
+				matrixService.resetMatrixIsUsedFlag(matrix.getElementArray());
+			} catch (MatrixServiceException e) {
+				LOGGER.warn("Cannot reset isUsed matrix elements", e);
+			}
 			WRITER.writeStringToFile(OUTPUT_FILE_NAME, getIntermediateResult(matrixSize, i));
 		}
 	}
