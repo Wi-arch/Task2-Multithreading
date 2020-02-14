@@ -8,7 +8,6 @@ import org.apache.log4j.Logger;
 
 import by.training.multithreading.entity.Matrix;
 import by.training.multithreading.entity.MatrixHandlerThread;
-import by.training.multithreading.exception.MatrixException;
 import by.training.multithreading.util.StringParser;
 import by.training.multithreading.util.TextFileReader;
 import by.training.multithreading.util.TextFileWriter;
@@ -29,12 +28,7 @@ public class Main {
 		int matrixSize = StringParser.parseStringToSizeOfMatrix(dataString);
 		Matrix matrix = Matrix.INSTANCE;
 
-		try {
-			matrix.initMatrix(matrixSize);
-		} catch (MatrixException e) {
-			LOGGER.fatal("Cannot initialize matrix");
-			throw new RuntimeException("Cannot initialize matrix");
-		}
+		matrix.initMatrix(matrixSize);
 
 		CountDownLatch latch = null;
 		ExecutorService executor = null;
