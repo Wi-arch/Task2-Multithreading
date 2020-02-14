@@ -1,6 +1,7 @@
 package by.training.multithreading.main;
 
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 
@@ -17,9 +18,11 @@ public class Main {
 	private static final Logger LOGGER = Logger.getLogger(Main.class);
 	private static final TextFileReader READER = TextFileReader.getInstance();
 	private static final TextFileWriter WRITER = TextFileWriter.getInstance();
+	private static final MatrixService MATRIX_SERVICE = MatrixService.getInstance();
 	private static final String FILE_NAME = "InitializationData.txt";
 	private static final String OUTPUT_FILE_NAME = "Matrix.txt";
 	private static final String SPLITERATOR = "-------------------------";
+	private static final int MAX_TIME_TO_WAIT = 3;
 
 	public static void main(String[] args) {
 
@@ -27,29 +30,22 @@ public class Main {
 		int iterationNumber = StringParser.parseStringToIterationNumber(dataString);
 		int matrixSize = StringParser.parseStringToSizeOfMatrix(dataString);
 		Matrix matrix = Matrix.INSTANCE;
-		MatrixService matrixService = MatrixService.getInstance();
-
 		matrix.initMatrix(matrixSize);
-
 		CountDownLatch latch = null;
-		// ExecutorService executor = null;
-
 		for (int i = 0; i < iterationNumber; i++) {
 			latch = new CountDownLatch(matrixSize);
-			// executor = Executors.newFixedThreadPool(matrixSize);
 			for (int t = 0; t < matrixSize; t++) {
-				// executor.submit(new MatrixHandlerThread(OUTPUT_FILE_NAME, latch));
 				new MatrixHandlerThread(OUTPUT_FILE_NAME, latch);
 			}
 			try {
-				latch.await();
+				latch.await(MAX_TIME_TO_WAIT, TimeUnit.SECONDS);
 			} catch (InterruptedException e) {
 				Thread.currentThread().interrupt();
 				LOGGER.warn("Thread is interrupted", e);
 			}
 			WRITER.writeStringToFile(OUTPUT_FILE_NAME, matrix.toString());
 			try {
-				matrixService.resetMatrixIsUsedFlag(matrix.getElementArray());
+				MATRIX_SERVICE.resetMatrixIsUsedFlag(matrix.getElementArray());
 			} catch (MatrixServiceException e) {
 				LOGGER.error("Cannot reset isUsed matrix elements", e);
 			}
