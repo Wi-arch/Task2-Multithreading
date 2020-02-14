@@ -1,0 +1,72 @@
+Thread #4	Diagonal #3	Sum = 8
+Thread #1	Diagonal #0	Sum = 4
+Thread #3	Diagonal #2	Sum = 7
+Thread #2	Diagonal #1	Sum = 4
+1	2	1	4	
+0	2	3	0	
+0	0	3	0	
+0	0	0	4	
+-------------------------
+Iteration #1 finished
+-------------------------
+
+Thread #5	Diagonal #0	Sum = 15
+Thread #8	Diagonal #2	Sum = 19
+Thread #7	Diagonal #1	Sum = 22
+Thread #6	Diagonal #3	Sum = 12
+5	5	8	6	
+7	7	3	0	
+0	0	8	0	
+0	0	0	6	
+-------------------------
+Iteration #2 finished
+-------------------------
+
+Thread #9	Diagonal #0	Sum = 39
+Thread #10	Diagonal #1	Sum = 32
+Thread #11	Diagonal #2	Sum = 25
+Thread #12	Diagonal #3	Sum = 24
+9	9	11	12	
+10	10	3	0	
+0	0	11	0	
+0	0	0	12	
+-------------------------
+Iteration #3 finished
+-------------------------
+
+Thread #13	Diagonal #0	Sum = 59
+Thread #14	Diagonal #1	Sum = 44
+Thread #16	Diagonal #3	Sum = 32
+Thread #15	Diagonal #2	Sum = 33
+13	13	15	16	
+14	14	3	0	
+0	0	15	0	
+0	0	0	16	
+-------------------------
+Iteration #4 finished
+-------------------------
+
+Thread #17	Diagonal #0	Sum = 79
+Thread #18	Diagonal #1	Sum = 56
+Thread #20	Diagonal #2	Sum = 43
+Thread #19	Diagonal #3	Sum = 38
+17	17	20	19	
+18	18	3	0	
+0	0	20	0	
+0	0	0	19	
+-------------------------
+Iteration #5 finished
+-------------------------
+
+Thread #21	Diagonal #0	Sum = 99
+Thread #24	Diagonal #1	Sum = 72
+Thread #23	Diagonal #2	Sum = 49
+Thread #22	Diagonal #3	Sum = 44
+21	21	23	22	
+24	24	3	0	
+0	0	23	0	
+0	0	0	22	
+-------------------------
+Iteration #6 finished
+-------------------------
+
