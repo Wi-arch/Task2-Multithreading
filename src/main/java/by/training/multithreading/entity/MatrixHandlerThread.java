@@ -29,13 +29,10 @@ public class MatrixHandlerThread implements Runnable {
 	public void run() {
 		try {
 			int diagonalNumber = MATRIX_SERVICE.writeNumberInMatrixAndGetDiagonalNumber(MATRIX, id);
-
 			MATRIX_SERVICE.writeNumberInColumnOrRow(MATRIX, diagonalNumber, id);
-
 			int sum = MATRIX_SERVICE.getSumOfRowAndColumn(MATRIX, diagonalNumber);
 			String result = "Thread #" + id + "\tDiagonal #" + diagonalNumber + "\tSum = " + sum + "\r\n";
 			WRITER.writeStringToFile(file, result);
-
 		} catch (MatrixServiceException e) {
 			LOGGER.warn("Thread did not complete its task", e);
 		} finally {

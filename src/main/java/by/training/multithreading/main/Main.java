@@ -21,7 +21,7 @@ public class Main {
 	private static final TextFileWriter WRITER = TextFileWriter.getInstance();
 	private static final String FILE_NAME = "InitializationData.txt";
 	private static final String OUTPUT_FILE_NAME = "Matrix.txt";
-	private static final String SPLITERATOR = "--------";
+	private static final String SPLITERATOR = "-------------------------";
 
 	public static void main(String[] args) {
 
@@ -56,20 +56,15 @@ public class Main {
 			} catch (MatrixServiceException e) {
 				LOGGER.warn("Cannot reset isUsed matrix elements", e);
 			}
-			WRITER.writeStringToFile(OUTPUT_FILE_NAME, getIntermediateResult(matrixSize, i));
+			WRITER.writeStringToFile(OUTPUT_FILE_NAME, getIntermediateResult(i));
 		}
 	}
 
-	private static String getIntermediateResult(int matrixSize, int iteration) {
-
+	private static String getIntermediateResult(int iterationNumber) {
 		StringBuilder iterationResult = new StringBuilder();
-		StringBuilder tempSpliterator = new StringBuilder();
-		for (int i = 0; i < matrixSize - 1; i++) {
-			tempSpliterator.append(SPLITERATOR);
-		}
-		tempSpliterator.append("-\r\n");
-		iterationResult.append(tempSpliterator);
-		iterationResult.append("Iteration #" + (iteration + 1) + " finished\r\n");
-		return iterationResult.append(tempSpliterator + "\r\n").toString();
+		iterationResult.append(SPLITERATOR + "\r\n");
+		iterationResult.append("Iteration #" + (iterationNumber + 1) + " finished\r\n");
+		iterationResult.append(SPLITERATOR + "\r\n");
+		return iterationResult.toString();
 	}
 }
