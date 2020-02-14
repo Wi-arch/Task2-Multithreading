@@ -9,7 +9,7 @@ import by.training.multithreading.exception.MatrixServiceException;
 import by.training.multithreading.service.MatrixService;
 import by.training.multithreading.util.TextFileWriter;
 
-public class MatrixHandlerThread implements Runnable {
+public class MatrixHandlerThread extends Thread {
 
 	private static final Logger LOGGER = Logger.getLogger(MatrixHandlerThread.class);
 	private static final MatrixService MATRIX_SERVICE = MatrixService.getInstance();
@@ -24,8 +24,10 @@ public class MatrixHandlerThread implements Runnable {
 		this.file = file;
 		this.latch = latch;
 		id = THREAD_COUNTER.getAndIncrement();
+		start();
 	}
 
+	@Override
 	public void run() {
 		try {
 			int diagonalNumber = MATRIX_SERVICE.writeNumberInMatrixAndGetDiagonalNumber(MATRIX, id);

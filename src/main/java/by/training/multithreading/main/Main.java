@@ -1,8 +1,6 @@
 package by.training.multithreading.main;
 
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import org.apache.log4j.Logger;
 
@@ -34,27 +32,26 @@ public class Main {
 		matrix.initMatrix(matrixSize);
 
 		CountDownLatch latch = null;
-		ExecutorService executor = null;
+		// ExecutorService executor = null;
 
 		for (int i = 0; i < iterationNumber; i++) {
 			latch = new CountDownLatch(matrixSize);
-			executor = Executors.newFixedThreadPool(matrixSize);
+			// executor = Executors.newFixedThreadPool(matrixSize);
 			for (int t = 0; t < matrixSize; t++) {
-				executor.submit(new MatrixHandlerThread(OUTPUT_FILE_NAME, latch));
+				// executor.submit(new MatrixHandlerThread(OUTPUT_FILE_NAME, latch));
+				new MatrixHandlerThread(OUTPUT_FILE_NAME, latch);
 			}
 			try {
 				latch.await();
 			} catch (InterruptedException e) {
 				Thread.currentThread().interrupt();
 				LOGGER.warn("Thread is interrupted", e);
-			} finally {
-				executor.shutdown();
 			}
 			WRITER.writeStringToFile(OUTPUT_FILE_NAME, matrix.toString());
 			try {
 				matrixService.resetMatrixIsUsedFlag(matrix.getElementArray());
 			} catch (MatrixServiceException e) {
-				LOGGER.warn("Cannot reset isUsed matrix elements", e);
+				LOGGER.error("Cannot reset isUsed matrix elements", e);
 			}
 			WRITER.writeStringToFile(OUTPUT_FILE_NAME, getIntermediateResult(i));
 		}
