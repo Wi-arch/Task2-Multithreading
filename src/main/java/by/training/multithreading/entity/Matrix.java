@@ -9,6 +9,7 @@ public enum Matrix {
 
 	INSTANCE;
 	private Element[][] elementArray;
+	private int size;
 
 	private class Element {
 		private int value;
@@ -21,6 +22,7 @@ public enum Matrix {
 
 	public void initMatrix(int size) throws MatrixException {
 		MatrixValidator.validateMatrixSize(size);
+		this.size = size;
 		this.elementArray = new Element[size][size];
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
@@ -42,7 +44,7 @@ public enum Matrix {
 		return elementArray[i][j].value;
 	}
 
-	public boolean setValue(int i, int j, int value) throws MatrixException {
+	public boolean trySetValue(int i, int j, int value) throws MatrixException {
 		MatrixValidator.validateIndexOfMatrix(i, j, elementArray.length);
 		Element currentElement = elementArray[i][j];
 		if (!currentElement.flag.compareAndExchange(false, true)) {
@@ -50,6 +52,10 @@ public enum Matrix {
 			return true;
 		}
 		return false;
+	}
+
+	public int getSize() {
+		return size;
 	}
 
 }

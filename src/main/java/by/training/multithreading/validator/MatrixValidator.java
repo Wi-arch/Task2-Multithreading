@@ -15,4 +15,10 @@ public class MatrixValidator {
 			throw new MatrixException();
 		}
 	}
+
+	public static void validateIndexOfMatrix(int i, int size) throws MatrixException {
+		if (i < 0 || i >= size) {
+			throw new MatrixException();
+		}
+	}
 }
