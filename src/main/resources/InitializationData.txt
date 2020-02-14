@@ -1,0 +1,2 @@
+Iteration count (Y) = 6
+Matrix size (N) = 4
