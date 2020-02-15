@@ -43,12 +43,11 @@ public class MatrixService {
 		do {
 			randomIndex = getRandomIndex(diagonalNumber, matrix.length - 1);
 			if (RANDOM.nextBoolean()) {
-				run = matrix[randomIndex][diagonalNumber].trySetValue(number) ? false : run;
+				run = !matrix[randomIndex][diagonalNumber].trySetValue(number);
 			} else {
-				run = matrix[diagonalNumber][randomIndex].trySetValue(number) ? false : run;
+				run = !matrix[diagonalNumber][randomIndex].trySetValue(number);
 			}
 		} while (run);
-
 	}
 
 	public int getSumOfRowAndColumn(Element[][] matrix, int diagonalNumber) throws MatrixServiceException {
@@ -56,12 +55,10 @@ public class MatrixService {
 		MatrixValidator.validateIndexOutOfSize(diagonalNumber, matrix.length);
 		int sum = 0;
 		for (int i = 0; i < matrix.length; i++) {
-			for (int j = 0; j < matrix.length; j++) {
-				if (i == diagonalNumber || j == diagonalNumber) {
-					sum += matrix[i][j].getValue();
-				}
-			}
+			sum += matrix[i][diagonalNumber].getValue();
+			sum += matrix[diagonalNumber][i].getValue();
 		}
+		sum -= matrix[diagonalNumber][diagonalNumber].getValue();
 		return sum;
 	}
 
@@ -88,5 +85,4 @@ public class MatrixService {
 		}
 		return index;
 	}
-
 }
